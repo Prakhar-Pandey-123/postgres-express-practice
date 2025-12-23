@@ -1,0 +1,35 @@
+-- CREATE TABLE "users"(
+--   id  SERIAL PRIMARY KEY, 
+--   username VARCHAR(50) UNIQUE NOT NULL,
+--   password VARCHAR(50) NOT NULL,
+--   gmail VARCHAR(50) UNIQUE NOT NULL
+-- )
+
+-- 
+
+-- INSERT INTO users(username,password,gmail) 
+--   VALUES('prakhar-1','123','prakhar-1@gmail.com')
+
+-- 
+
+-- SELECT * FROM users
+
+--
+
+-- UPDATE users 
+--   SET password='456'
+--   WHERE username='prakhar-1'
+
+-- 
+
+-- INSERT INTO users(username,password,gmail)
+--   VALUES('prahar-2','789','prakhar-2@gmail.com')
+
+--
+
+-- DELETE FROM users WHERE id=1
+
+-- 
+
+-- SELECT * FROM users
+
