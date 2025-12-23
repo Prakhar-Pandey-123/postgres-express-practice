@@ -1,7 +1,10 @@
 import express from "express";
 import { Client } from "pg";
+import dotenv from "dotenv";
+dotenv.config();
+const SQLClient = process.env.SQLClient;
 const app = express();
-const sqlClient = new Client("postgresql://neondb_owner:npg_d7srW9HyiJQb@ep-delicate-sun-a49yirqr-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require");
+const sqlClient = new Client(SQLClient);
 async function connected() {
     try {
         await sqlClient.connect();
@@ -51,7 +54,7 @@ app.get("/see-joins", async (req, res) => {
     const query2 = `SELECT * FROM addresses WHERE user_id=$1`;
     const res2 = await sqlClient.query(query2, [id]);
     // now we can here use join, to merge both the tables and do n*m , on the basis of a common field, which is present in both the tables.like here its user_id 
-    //method-2,, inner join========
+    //method-2,, ====================inner join=============
     const query3 = `SELECT users.id,users.username,users.gmail,addresses.city,addresses.country 
         FROM users JOIN addresses
         ON users.id=addresses.user_id
@@ -88,7 +91,7 @@ app.get("/see-joins", async (req, res) => {
 app.listen(4000, () => {
     console.log("app is listening at port 4000");
 });
-//============ code of class 1 =========
+//============ code of class 1 ============================
 // import express  from "express";
 // import { Client } from "pg";
 // const pgClient=new Client("xxxxxx")
@@ -129,4 +132,32 @@ app.listen(4000, () => {
 //     }
 // })
 // app.listen(3000)
+// this is the output of see-joins where the id exits in left table and not right table
+// ====================================
+// "user1": {
+//     "username": "prakhar-4",
+//     "gmail": "prakhar-4@gmail.com",
+//     "id": 6
+//   },
+//   "address1": [],
+//   "res3": [],
+//   "res4": [
+//     {
+//       "id": 6,
+//       "username": "prakhar-4",
+//       "gmail": "prakhar-4@gmail.com",
+//       "city": null,
+//       "country": null
+//     }
+//   ],
+//   "res5": [],
+//   "res6": [
+//     {
+//       "id": 6,
+//       "username": "prakhar-4",
+//       "gmail": "prakhar-4@gmail.com",
+//       "city": null,
+//       "country": null
+//     }
+//   ]
 //# sourceMappingURL=index.js.map
